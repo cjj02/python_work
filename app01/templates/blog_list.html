@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="jumbotron">
+        <div class="text-success"><h1>美好的生活，总是需要自己记录</h1></div>
+        <p><a class="btn btn-primary btn-lg" href="/blog/create/" role="button">撰写博客</a></p>
+    </div>
+    <div>
+        <div style="float: right;width: 300px;">
+            <form method="get">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search for..."
+                           value="{{ search_data }}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                      </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% for obj in queryset %}
+        <div class="panel panel-default">
+            <div class="panel-heading text-primary">{{ obj.title }}</div>
+            <div class="panel-body text-info">
+                {{ obj.contain }}
+            </div>
+            <div class="panel-body text-danger">
+                {{ obj.create_time }}
+                <a class="btn btn-primary btn-xs" href="/blog/{{ obj.id }}/edit/">编辑</a>
+                <a class="btn btn-danger btn-xs" href="/blog/{{ obj.id }}/delete/">删除</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <ul class="pagination">
+        {{ page_string }}
+    </ul>
+{% endblock %}
